@@ -1,9 +1,6 @@
-let selector = "";
-let click = 0;
-let elm = null;
-
 function getSelector(e){
-    selector = "";
+    
+    let selector = "";
     let elem = e.path;
 
     let len1 = elem.length;
@@ -53,27 +50,18 @@ function getSelector(e){
         }
 
     }
-    console.log(selector);
+
+    return selector;
 }
 
 function Editable(){
 
+    let elm = null;
     window.addEventListener("click", (e) => {
-    //window.addEventListener("contextmenu", (e) => { // za desni klik.
         
-        click++;
         let element = e.target;
         elm = element;
-        getSelector(e);
-
-        if(click===1){
-            element.contentEditable = true;
-        }
-
-        if(click===4){
-            element.contentEditable = false;
-            click = 0;
-        }
+        element.contentEditable = true;
 
     });
 
@@ -87,13 +75,13 @@ function Editable(){
         e.target.style.border = "none";
     });
 
-}
+    window.addEventListener("keydown", (e) => {
+    
+        if(e.key === "Escape") {
+            elm.contentEditable = false;
+        }
+        
+    });
 
-window.addEventListener("keydown", (e) => {
-    
-    if(e.key === "Escape") {
-        elm.contentEditable = false;
-    }
-    
-});
+}
 
